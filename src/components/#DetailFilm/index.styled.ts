@@ -71,36 +71,48 @@ export const ContentTitle = styled.span`
 `;
 
 export const Data = styled.div`
-    display: grid;
+    display: flex;
     width: 100%;
-    align-items: center;
-    align-self: center;
-    grid-template-columns: 1fr 2fr ;
-    grid-gap: 20px;
-    border-top: 1px solid ${props => props.theme.accentColor1};
-    border-bottom: 1px solid ${props => props.theme.accentColor1};
-    padding: 20px 0px;
-    box-sizing: border-box; 
-    @media (min-width: 1200px){   
-    }
-    @media (max-width: 1200px) and (min-width: 992px)  {     
-    }
-    @media (max-width: 992px) and (min-width: 768px)  {     
-    }
-    @media (max-width: 768px) and (min-width: 576px)  {    
-    }
-    @media (max-width: 576px)  {
-        grid-template-columns: 1fr;
-    }
+    justify-content: space-between;
+    align-items: self-start;
+    gap: 50px;
 `;
 
 export const BackgroundImage = styled.img`
     position: absolute;
     top: 0;
     width: 100%;
-    height: 600px;
+    height: 100%;
     object-fit: cover;
-    opacity: 0.3;
+    opacity: 1;
+    border-radius: 0px 20px;
+`;
+
+export const IMDbImage = styled.div`
+    width: 57.128px;
+    height: 30px;
+`
+
+export const RaitingIcons = styled.div`
+
+display: flex; 
+gap: 10px;
+align-items: center;
+`
+
+export const LeftContent = styled.div`
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+`
+
+export const CardImage = styled.img`
+    top: 0;
+    width: 452px;
+    height: 568px;
+    object-fit: cover;
+    opacity: 1;
 `;
 
 export const Image = styled.div`
@@ -152,16 +164,21 @@ export const Button = styled.a`
 export const DownloadButton = styled(Button)`
     background-color: ${props=>props.theme.accentColor1};
 `;
+
+export const BackHome = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 50px;
+`
 export const WatchButton = styled(Button)`
     background-color:${props=>props.theme.accentColor2};
 `;
 
-export const Description = styled.div`
-    display: grid;
-    align-items: flex-start;
-    align-self: flex-start;
-    grid-template-columns: 1fr;
-    grid-gap: 20px;
+export const Description = styled.p`
+    color: ${props => props.theme.textColor1};
+    font-size: ${props => props.theme.textSizeTextM};
 `;
 
 export const Title = styled.div`
@@ -228,4 +245,11 @@ export const Torrents = styled.div`
 `;
 
 
-
+export const CommentsTitle = styled.h2`
+  display: flex;
+  font-size: ${props=> props.theme.textSizeTitle};
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: ${props => props.theme.accentColor1};
+  margin-right: 15px;
+`

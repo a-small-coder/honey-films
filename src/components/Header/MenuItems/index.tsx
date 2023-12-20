@@ -22,9 +22,9 @@ export const MenuItems = () => {
             isActive: pathname == '/top-rated',
         },
         {
-            name: 'Upcoming',
-            href: '/upcoming',
-            isActive: pathname == '/upcoming',
+            name: 'Popular',
+            href: '/popular',
+            isActive: pathname == '/popular',
         }
     ]
     return (

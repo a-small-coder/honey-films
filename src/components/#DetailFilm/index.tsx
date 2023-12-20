@@ -1,105 +1,88 @@
 import * as Style from "./index.styled";
 import { useFilmRetrieve } from "@/lib/hooks/useFilmRetrieve";
 import { useRouter } from "next/router";
-import { VscDesktopDownload, VscStarFull } from "react-icons/vsc";
-import GenreItem from "./GenreItem/GenreItem";
-import StatisticItem from "./StatisticItem/StatisticItem";
-import Torrent from "./TorrentItem";
-
-import { AiTwotoneLike } from "react-icons/ai";
+import star from '@/../public/Star.svg'
+import starHalf from '@/../public/StarHalf.svg'
+import imdb from '@/../public/imdb.png'
+import back from '@/../public/btn - Previous.svg'
 
 import Link from "next/link";
 import { BiTimeFive } from "react-icons/bi";
 import Loader from "../Loader";
+import Image from "next/image";
+import Comments from "./Comments";
 const Details = () => {
   const router = useRouter();
   const { filmRetrieve, isLoading } = useFilmRetrieve(
     (router.query.id as string) || ""
   );
 
-  if (isLoading) {
+  if (isLoading || filmRetrieve == undefined) {
     return <Loader />;
   }
 
-  const genresList = filmRetrieve?.data.movie.genres.map((value) => {
-    return <GenreItem key={value} text={value} />;
-  });
-  const torrentsList = filmRetrieve?.data.movie.torrents.map((item, index) => {
-    return (
-      <Torrent
-        key={index}
-        href={item.url}
-        quality={item.quality}
-        type={item.type}
-        size={item.size}
-      />
-    );
-  });
+  const props = filmRetrieve.data.movie
+  const stars = Math.round((props.rating / 2) * 10) / 10
+
+  const starsItems = []
+  for (let i = 0; i < Math.round(stars); i++) {
+    starsItems.push(<Image src={star} alt={`1`}/>)
+    
+  }
+  if (stars > Math.round(stars)){
+    starsItems.push(<Image src={starHalf} alt={`.5`}/>)
+  }
 
   return (
     <Style.Details>
       <Style.BackgroundImage
-        src={filmRetrieve?.data.movie.background_image_original}
+        src={props.background_image_original}
       ></Style.BackgroundImage>
       <Style.Content>
         <Style.ContentTitle>
-          <Link href={"/"}>Films / {filmRetrieve?.data.movie.title}</Link>
+          <Link href={"/"}>
+            <Style.BackHome>
+              <Image src={back} alt='back arrow'/>
+              Back to Home
+            </Style.BackHome>
+          </Link>
         </Style.ContentTitle>
 
         <Style.Data>
-          <Style.Image>
-            <Style.Img
-              src={filmRetrieve?.data.movie.large_cover_image}
-            ></Style.Img>
-            <Style.Buttons>
-              <Style.DownloadButton href={filmRetrieve?.data.movie.url}>
-                Download
-              </Style.DownloadButton>
-              <Style.WatchButton href={filmRetrieve?.data.movie.url}>
-                Watch Now
-              </Style.WatchButton>
-            </Style.Buttons>
-          </Style.Image>
 
-          <Style.Description>
-            <Style.Title>{filmRetrieve?.data.movie.title}</Style.Title>
+          <Style.LeftContent>
 
-            <Style.Year>
-              {filmRetrieve?.data.movie.year +
-                " " +
-                filmRetrieve?.data.movie.language}
-            </Style.Year>
+            <Style.Title>
+              {props.title}
+            </Style.Title>
 
-            <Style.Genres>{genresList}</Style.Genres>
+            <Style.RaitingIcons>
+            {starsItems} 
+            </Style.RaitingIcons>
+            <Style.Title>
+              {props.like_count} likes
+            </Style.Title>
 
-            <Style.DescriptionFull>
-              {filmRetrieve?.data.movie.description_full}
-            </Style.DescriptionFull>
+            <Style.IMDbImage>
+              <Image src={imdb} alt='imdb'/>
+            </Style.IMDbImage>
 
-            <Style.Statistic>
-              <StatisticItem
-                icon={<VscStarFull />}
-                text={filmRetrieve?.data.movie.rating}
-              ></StatisticItem>
-              <StatisticItem
-                icon={<AiTwotoneLike />}
-                text={filmRetrieve?.data.movie.like_count}
-              ></StatisticItem>
-              <StatisticItem
-                icon={<BiTimeFive />}
-                text={filmRetrieve?.data.movie.runtime}
-              ></StatisticItem>
-              <StatisticItem
-                icon={<VscDesktopDownload />}
-                text={filmRetrieve?.data.movie.download_count}
-              ></StatisticItem>
-            </Style.Statistic>
+            <Style.Description>
+              {props.description_full}
+            </Style.Description>
+          </Style.LeftContent>
 
-            <Style.TorrentsTitle>Downloads:</Style.TorrentsTitle>
-
-            <Style.Torrents>{torrentsList}</Style.Torrents>
-          </Style.Description>
+          <Style.CardImage src={props.medium_cover_image} alt='card image'/>
         </Style.Data>
+        {props != undefined && (
+            <>
+              <Style.CommentsTitle>
+                Comments
+              </Style.CommentsTitle>
+              <Comments PersonKey={props.id}/>
+            </>
+
+        )}
       </Style.Content>
     </Style.Details>
   );

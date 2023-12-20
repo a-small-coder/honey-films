@@ -1,9 +1,10 @@
+
 import styled from "styled-components"
 
 export const Button = styled.button`
     display: flex;
     flex: 0 0 auto;
-    width: 50px;
+    width: 250px;
     height: 50px;
     margin: 0px 0px 0px 20px;
     border-radius: 50px;
@@ -13,12 +14,12 @@ export const Button = styled.button`
     background-color: ${props => props.theme.accentColor1};
     box-shadow: 0px 0px 5px ${props => props.theme.shadowColor} ;
     color: ${props => props.theme.textColor2};
-    &:hover{
+    &:hover{ //при наведении
         background-color: ${props => props.theme.accentColor2};
         color: ${props => props.theme.accentColor1};
         transition: 0.1s;
     }
-    &:focus{
+    &:focus{ 
         outline: none;   
     }
     cursor: pointer;
@@ -29,6 +30,7 @@ export const Button = styled.button`
 export const Content = styled.div`
     display: flex;
     width: 100%;
+    width: 100%;
     align-items: center;
     justify-content: center;
 `;
@@ -36,10 +38,9 @@ export const Content = styled.div`
 export const Name = styled.div`  
     display: flex;
     width: 100%;
+    width: 100%;
     align-items: center;
     justify-content: center;
     font-size: ${props => props.theme.textSizeTextL};
     font-weight: 600;
 `;
-
-
